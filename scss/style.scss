@@ -39,6 +39,13 @@ label{
   display: block;
 }
 
+.selector-label{
+  width: 25%;
+  min-width: 200px;
+  margin-top: 4rem;
+  display: inline-block;
+}
+
 .data-type{
   width: 25%;
   overflow-y: auto;
@@ -46,7 +53,19 @@ label{
   min-width: 200px;
   display: inline-block;
   border: 1px solid black;
-  margin-top: 4rem;
+  ul{
+    li{
+      a{
+        display: block;
+        text-decoration: none;
+        color: skyblue;
+      }
+      a.active{
+        color: black;
+        background-color: lightgrey;
+      }
+    }
+  }
 }
 
 

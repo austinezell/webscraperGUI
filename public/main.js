@@ -3,8 +3,15 @@
 $(document).ready(function(){
   const $addURL = $("#addURL");
   const $url = $('#url');
-
+  const $sanitizedHTML = $("#sanitizedHTML");
+  const $classNames = $("#classNames");
+  const $ids = $("#ids");
+  const $elements = $("#elements");
   $addURL.on("click", addURL)
+  $("body").on("click", "a", function(e){
+    e.preventDefault()
+  })
+  $classNames.on("click", "selector", attributeSelect)
 
   function addURL(){
     let url = $url.val()
@@ -23,11 +30,17 @@ $(document).ready(function(){
       let thisDiv = $(`#${key}`)
       let $ul = $("<ul>");
       for(let selector of data.types[key]){
-        let $li = $("<li>").text(selector)
+        let $a = $("<a>").attr("href", "").addClass('selector').text(selector);
+        let $li = $("<li>").append($a);
         $ul.append($li)
       }
-      thisDiv.append($ul)
+      thisDiv.html($ul)
     }
-    $("#sanitizedHTML").html(data.sanitizedHTML)
+    $sanitizedHTML.html(data.sanitizedHTML)
+  }
+
+  function attributeSelect(){
+    $(this).toggleClass('active');
+    $('.active').each
   }
 })

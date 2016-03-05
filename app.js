@@ -11,10 +11,14 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/url/:url', (req, res) =>{
-  request(`https://${req.params.url}`, (err, response, html)=>{
+  const url = `http://${req.params.url}`;
+  request(url, (err, response, html)=>{
     if(!err){
       let sanitizedHTML = html.match(/<body(.|\s)+<\/body>/g)[0].replace(/<script(.|\s)+<\/script>/, "")
-      sanitizedHTML = sanitizedHTML.replace(/"/, '\'').replace()
+      sanitizedHTML = sanitizedHTML.replace(/"/g, '\'').replace(/src='.+'/g, function(text){
+        text = text.replace(/src='/g, `src='${url}/`).replace(/srcset='/g, `srcset='${url}/`)
+        return text;
+      })
       let $ = cheerio.load(sanitizedHTML);
       let classNames = [];
       let ids = [];
@@ -30,13 +34,13 @@ app.get('/url/:url', (req, res) =>{
           let thisClasses = $element.attr("class").toString().split(/\s+/);
           for (let className of thisClasses){
             if (classNames.indexOf(className) < 0){
-              classNames.push(className);
+              classNames.push(`.${className}`);
             }
           }
         }
         if ($element.attr('id')){
           let id = $element.attr("id");
-          ids.push(id);
+          ids.push(`#${id}`);
         }
       })
       res.send({sanitizedHTML, types: {ids, elements, classNames}})
