@@ -37,6 +37,14 @@ header {
 
 label{
   display: block;
+  text-align: center;
+}
+
+.spacer{
+  padding: 2rem;
+  label{
+    font-size: 2rem;
+  }
 }
 
 .selector-label{
@@ -70,9 +78,16 @@ label{
 
 
 #sanitizedHTML{
-  height: 700px;
+  height: 400px;
   overflow-y: auto;
   *{
     display: block !important;
+  }
+  *{
+
+  }
+  .highlight{
+    color: grey;
+    background-color: pink;
   }
 }

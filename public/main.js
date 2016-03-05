@@ -6,17 +6,19 @@ $(document).ready(function(){
   const $sanitizedHTML = $("#sanitizedHTML");
   const $classNames = $("#classNames");
   const $ids = $("#ids");
+  console.log($ids);
   const $elements = $("#elements");
   $addURL.on("click", addURL)
   $("body").on("click", "a", function(e){
     e.preventDefault()
   })
-  $classNames.on("click", "selector", attributeSelect)
-
+  $classNames.on("click", ".selector", attributeSelect)
+  $ids.on("click", ".selector", attributeSelect)
   function addURL(){
     let url = $url.val()
     url = url.replace(/http:\/\/|https:\/\//, "")
-    $.get(`/url/${url}`)
+    let obj = {url}
+    $.post(`/url/`, obj)
     .success((data)=>{
       appendData(data);
     })
@@ -39,8 +41,12 @@ $(document).ready(function(){
     $sanitizedHTML.html(data.sanitizedHTML)
   }
 
-  function attributeSelect(){
+  function attributeSelect(evt){
     $(this).toggleClass('active');
-    $('.active').each
+    $("*").removeClass('highlight')
+    $('.active').each(function(i){
+      let selector = $(this).text();
+      $(selector).addClass('highlight')
+    })
   }
 })

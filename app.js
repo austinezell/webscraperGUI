@@ -4,21 +4,26 @@ const app = express();
 const path = require('path');
 const request = require('request');
 const cheerio = require('cheerio');
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.get('/', (req, res)=>{
   res.sendFile(path.join(__dirname + '/index.html'))
 })
 
-app.get('/url/:url', (req, res) =>{
-  const url = `http://${req.params.url}`;
+app.post('/url/', (req, res) =>{
+  const url = `http://${req.body.url}`;
+  console.log(req.body);
+  console.log(url);
   request(url, (err, response, html)=>{
     if(!err){
       let sanitizedHTML = html.match(/<body(.|\s)+<\/body>/g)[0].replace(/<script(.|\s)+<\/script>/, "")
-      sanitizedHTML = sanitizedHTML.replace(/"/g, '\'').replace(/src='.+'/g, function(text){
-        text = text.replace(/src='/g, `src='${url}/`).replace(/srcset='/g, `srcset='${url}/`)
-        return text;
-      })
+      // sanitizedHTML = sanitizedHTML.replace(/"/g, '\'').replace(/src='.+'/g, function(text){
+        // text = text.replace(/src='/g, `src='${url}/`).replace(/srcset='/g, `srcset='${url}/`)
+        // return text;
+      // })
       let $ = cheerio.load(sanitizedHTML);
       let classNames = [];
       let ids = [];
