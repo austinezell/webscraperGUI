@@ -1,0 +1,21 @@
+{
+  "name": "webscraper-gui",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "austin ezell <austin.r.ezell@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.1"
+  }
+}
