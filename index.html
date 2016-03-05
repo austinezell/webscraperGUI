@@ -12,11 +12,21 @@
     </div>
     <div class="right">
       <label for="url">Enter the URL you'd like to scrape:</label>
-      <input type="text" placeholder="URL"/>
-  </header>
+      <input id="url" type="text" placeholder="URL"/> <button id="addURL">Go!</button>
+    </header>
+    <div class="type-container" align='center'>
+
+      <div id="ids" class="data-type"></div>
+      <div id="classNames" class="data-type"></div>
+      <div id="elements" class="data-type"></div>
+
+    </div>
+    <div id="sanitizedHTML" class="web-content">
+
+    </div>
 
 
-  <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-  <script src="main.js" charset="utf-8"></script>
-</body>
-</html>
+    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+  </html>
